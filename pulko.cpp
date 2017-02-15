@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "propellantLibrary.hpp"
+#include "bodyLibrary.hpp"
 #include "parts.hpp"
 #include "engines.hpp"
 #include "state.hpp"

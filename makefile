@@ -1,7 +1,7 @@
-pulko : pulko.o orbit.o state.o bodyLibrary.o
-	g++ -o pulko pulko.o state.o bodyLibrary.o
+pulko : pulko.o orbit.o state.o
+	g++ -o pulko pulko.o state.o
 
-pulko.o : pulko.cpp propellantLibrary.hpp parts.hpp engines.hpp state.hpp orbit.hpp spacecraft.hpp
+pulko.o : pulko.cpp propellantLibrary.hpp parts.hpp engines.hpp state.hpp orbit.hpp spacecraft.hpp bodyLibrary.hpp
 	g++ -O2 -c pulko.cpp
 orbit.o : orbit.cpp orbit.hpp
 	g++ -O2 -c orbit.cpp
