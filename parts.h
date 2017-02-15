@@ -1,3 +1,5 @@
+#include "propellants.h"
+
 struct payload{
 	double mass;
 	payload():mass(0){};
@@ -7,24 +9,6 @@ struct payload{
 		mass(i_mass)
 	{};
 };
-
-struct propellant{
-	double density;
-	std::string name;
-	propellant():
-		name("generic_propellant"),
-		density(0)
-	{};
-	propellant(
-		double i_density,
-		std::string i_name
-	):
-		density(i_density),
-		name(i_name)
-	{};
-};
-
-propellant fuel_NONE;//virtual oxidizer, used for monopropellant systems
 
 struct engine{
 	double mass;

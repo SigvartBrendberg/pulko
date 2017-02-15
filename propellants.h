@@ -1,11 +1,24 @@
-//propellant library
+#ifndef INC_propellants_H
+#define INC_propellants_H
 
-propellant fuel_LH2(
-	 70.85,
-	"liquid hydrogen"
-);
-propellant fuel_LOX(
-	1141,
-	"liquid oxygen"
-);
-propellant fuel_RP1;
+#include <string>
+
+struct propellant{
+	double density;
+	std::string name;
+	propellant():
+		name("generic_propellant"),
+		density(0)
+	{};
+	propellant(
+		double i_density,
+		std::string i_name
+	):
+		density(i_density),
+		name(i_name)
+	{};
+};
+
+propellant fuel_NONE;//virtual oxidizer, used for monopropellant systems
+
+#endif

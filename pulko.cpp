@@ -3,8 +3,8 @@
 #include <string>
 #include <cmath>
 
+#include "propellantLibrary.h"
 #include "parts.h"
-#include "propellants.h"
 #include "engines.h"
 #include "state.h"
 #include "orbit.h"
