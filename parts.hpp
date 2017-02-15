@@ -32,8 +32,6 @@ struct engine{
 		thrust(0),
 		air_vel(0),
 		air_thrust(0),
-		fuel(&fuel_NONE),
-		oxidizer(&fuel_NONE),
 		oxiPerFuel(0),
 		dropable(false),
 		hasPropellant(false),
@@ -94,7 +92,6 @@ struct tank{
 	tank():
 		dead(0),
 		volume(0),
-		prop(&fuel_NONE),
 		propMass(0),
 		dropable(true)
 	{};

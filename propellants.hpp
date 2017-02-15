@@ -58,6 +58,4 @@ struct propellant{
 	{};
 };
 
-propellant fuel_NONE;//virtual oxidizer, used for monopropellant systems
-
 #endif

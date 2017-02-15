@@ -6,6 +6,7 @@
 #include <string>
 
 #include "state.hpp"
+#include "atmosphere.hpp"
 
 class body{
 private:
@@ -16,6 +17,8 @@ public:
 	double gm;
 	double radius;
 	std::string name;
+	bool hasAtmosphere;
+	atmosphere air;
 //constructors
 	body():
 		gm(1),

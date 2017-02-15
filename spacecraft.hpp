@@ -1,3 +1,6 @@
+#ifndef INC_spacecraft_HPP
+#define INC_spacecraft_HPP
+
 #include "body.hpp"
 #include "state.hpp"
 #include "parts.hpp"
@@ -15,3 +18,5 @@ public:
 		spaceMode(false)
 	{};
 };
+
+#endif

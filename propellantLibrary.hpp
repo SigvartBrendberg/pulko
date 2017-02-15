@@ -2,6 +2,8 @@
 
 //propellant library
 
+propellant fuel_NONE;//virtual oxidizer, used for monopropellant systems
+
 //fuels:
 
 propellant fuel_LH2(
