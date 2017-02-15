@@ -3,13 +3,13 @@
 #include <string>
 #include <cmath>
 
-#include "propellantLibrary.h"
-#include "parts.h"
-#include "engines.h"
-#include "state.h"
-#include "orbit.h"
-#include "body.h"
-#include "spacecraft.h"
+#include "propellantLibrary.hpp"
+#include "parts.hpp"
+#include "engines.hpp"
+#include "state.hpp"
+#include "orbit.hpp"
+#include "body.hpp"
+#include "spacecraft.hpp"
 
 int main(){
 	body sun(1.32712440018e20,695700000);//sun

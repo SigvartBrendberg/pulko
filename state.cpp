@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "state.h"
+#include "state.hpp"
 
 orbit groundToOrbit(ground* initial){
 	orbit target;

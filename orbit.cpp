@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cmath>
 
-#include "state.h"
-#include "orbit.h"
+#include "state.hpp"
+#include "orbit.hpp"
 
 double ellipse(double gm,double radius,double periapsis,double apoapsis){
 	return std::sqrt(gm*(2/radius - 2/(apoapsis+periapsis)));
