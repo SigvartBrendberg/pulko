@@ -1,6 +1,14 @@
+#ifndef INC_body_HPP
+#define INC_body_HPP
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+#include "state.hpp"
+
 class body{
 private:
-	static std::vector<body*> index;
 	std::vector<body*> children;
 	body* parent;
 	orbit orb;
@@ -15,7 +23,7 @@ public:
 		name("generic_planet"),
 		orb()
 	{
-		index.push_back(this);
+		orb.gm = 1;
 	};
 	body(
 		double i_gm,
@@ -26,7 +34,6 @@ public:
 		name("generic_planet"),
 		orb()
 	{
-		index.push_back(this);
 		orb.gm = i_gm;
 	};
 	body(
@@ -40,7 +47,7 @@ public:
 		name("generic_planet"),
 		orb()
 	{
-		index.push_back(this);
+		i_parent->addChild(this);
 		orb.gm = i_gm;
 	};
 //destructors
@@ -55,10 +62,8 @@ public:
 		return parent;
 	};
 //actions
-	int addChild(double i_gm,double i_radius){
-		body*newChild = new body(i_gm,i_radius,this);
+	int addChild(body* newChild){
 		children.push_back(newChild);
-		index.push_back(newChild);
 		return 0;
 	};
 	body* latestChild(){
@@ -66,6 +71,4 @@ public:
 	};
 };
 
-std::vector<body*> body::index;
-
-body parent_NONE; //no parent value
+#endif

@@ -1,3 +1,8 @@
+#ifndef INC_state_HPP
+#define INC_state_HPP
+
+#include <cmath>
+
 class ground{
 private:
 public:
@@ -90,3 +95,5 @@ public:
 orbit groundToOrbit(ground* initial);
 
 ground orbitToGround(orbit* initial);
+
+#endif

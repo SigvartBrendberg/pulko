@@ -3,11 +3,11 @@
 //propellant library
 
 propellant fuel_LH2(
-	 70.85,
-	"liquid hydrogen"
+	"liquid hydrogen",
+	 70.85
 );
 propellant fuel_LOX(
-	1141,
-	"liquid oxygen"
+	"liquid oxygen",
+	1141
 );
 propellant fuel_RP1;

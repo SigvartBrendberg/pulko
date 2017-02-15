@@ -6,16 +6,35 @@
 struct propellant{
 	double density;
 	std::string name;
+	double boilingPoint;//kelvin
 	propellant():
 		name("generic_propellant"),
-		density(0)
+		density(1000),
+		boilingPoint(350)
 	{};
 	propellant(
-		double i_density,
-		std::string i_name
+		double i_density
+	):
+		name("generic_propellant"),
+		density(i_density),
+		boilingPoint(350)
+	{};
+	propellant(
+		std::string i_name,
+		double i_density
 	):
 		density(i_density),
-		name(i_name)
+		name(i_name),
+		boilingPoint(350)
+	{};
+	propellant(
+		std::string i_name,
+		double i_density,
+		double i_boilingPoint
+	):
+		density(i_density),
+		name(i_name),
+		boilingPoint(i_boilingPoint)
 	{};
 };
 
