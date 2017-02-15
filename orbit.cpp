@@ -19,48 +19,44 @@ double trasferCost(orbit* origin,orbit* target){
 			||
 			(origin->inc == target->inc && origin->asc == target->asc)
 		){
-			if(origin->periapsis == origin->apoapsis){
-				if(target->periapsis == target->apoapsis){//check Hohmann
-					double hohmannCost;
-					if(origin->periapsis < target->periapsis){
-						hohmannCost =
-							ellipse(
-								gm,
-								origin->periapsis,
-								origin->periapsis,
-								target->apoapsis
-							)
-							- origin->speed(origin->periapsis)
-							+ target->speed(target->apoapsis)
-							- ellipse(
-								gm,
-								target->periapsis,
-								origin->periapsis,
-								target->apoapsis
-							);
-					}
-					else{
-						hohmannCost =
-							- ellipse(
-								gm,
-								origin->periapsis,
-								target->apoapsis,
-								origin->periapsis
-							)
-							- target->speed(target->apoapsis)
-							+ origin->speed(origin->periapsis)
-							+ ellipse(
-								gm,
-								target->apoapsis,
-								target->apoapsis,
-								origin->periapsis
-							);
-					};
-					if(hohmannCost < result){
-						result = hohmannCost;
-					};
-				}//end hohmann
-				else{//origin is circular, but not target
+			if(origin->periapsis == origin->apoapsis){//circular origin
+				double hohmannCost;
+				if(origin->periapsis < target->periapsis){
+					hohmannCost =
+						ellipse(
+							gm,
+							origin->periapsis,
+							origin->periapsis,
+							target->apoapsis
+						)
+						- origin->speed(origin->periapsis)
+						+ target->speed(target->apoapsis)
+						- ellipse(
+							gm,
+							target->apoapsis,
+							origin->periapsis,
+							target->apoapsis
+						);
+				}
+				else{
+					hohmannCost =
+						- ellipse(
+							gm,
+							origin->periapsis,
+							target->periapsis,
+							origin->periapsis
+						)
+						- target->speed(target->periapsis)
+						+ origin->speed(origin->periapsis)
+						+ ellipse(
+							gm,
+							target->periapsis,
+							target->apoapsis,
+							origin->periapsis
+						);
+				};
+				if(hohmannCost < result){
+					result = hohmannCost;
 				};
 			}
 			else if(target->periapsis == target->apoapsis){//target is circular but not origin
@@ -70,12 +66,12 @@ double trasferCost(orbit* origin,orbit* target){
 					fmod(origin->arg + origin->asc,2*M_PI)
 					==
 					fmod(target->arg + target->asc,2*M_PI)
-				){//apsis line is parallel
+				){//apsis line is parallel, FIXME because float
 				}
 				else{
 				};
 			};
-		}
+		}//end planar
 		else{
 		}
 		return result;
