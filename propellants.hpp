@@ -7,6 +7,7 @@ struct propellant{
 	double density;
 	std::string name;
 	double boilingPoint;//kelvin
+	double freezingPoint;//kelvin
 	propellant():
 		name("generic_propellant"),
 		density(1000),
@@ -35,6 +36,18 @@ struct propellant{
 		density(i_density),
 		name(i_name),
 		boilingPoint(i_boilingPoint)
+	{};
+	propellant(
+		std::string i_name,
+		double i_density,
+		double i_boilingPoint,
+		double i_freezingPoint
+		
+	):
+		density(i_density),
+		name(i_name),
+		boilingPoint(i_boilingPoint),
+		freezingPoint(i_freezingPoint)
 	{};
 };
 
