@@ -3,59 +3,82 @@
 
 #include <string>
 
-struct propellant{
+struct phase{
 	double density;
-	std::string name;
-	double boilingPoint;//kelvin
-	double freezingPoint;//kelvin
-	propellant():
-		name("generic_propellant"),
-		density(1000),
-		boilingPoint(350)
+	double transition;//down, e.g solid = 0K
+	phase(){};
+	phase(
+		double i_density,
+		double i_transition
+	):
+		density(i_density),
+		transition(i_transition)
 	{};
+};
+
+struct compound{
+	phase liquid;
+	phase solid;
+	phase gas;
+	std::string name;
+};
+
+class propellant{
+private:
+	compound chemical;
+public:
+	propellant(){
+		chemical.name = "generic_propellant";
+		chemical.liquid.density = 1000;
+	};
+//
 	propellant(
 		double i_density
-	):
-		name("generic_propellant"),
-		density(i_density),
-		boilingPoint(350)
-	{};
+	){
+		chemical.name = "generic_propellant";
+		chemical.liquid.density = i_density;
+	};
+//
 	propellant(
 		std::string i_name
-	):
-		name(i_name),
-		density(1000),
-		boilingPoint(350)
-	{}
+	){
+		chemical.name = i_name;
+	};
+//
 	propellant(
 		std::string i_name,
 		double i_density
-	):
-		density(i_density),
-		name(i_name),
-		boilingPoint(350)
-	{};
+	){
+		chemical.liquid.density = i_density;
+		chemical.name = i_name;
+	};
+//
 	propellant(
 		std::string i_name,
 		double i_density,
 		double i_boilingPoint
-	):
-		density(i_density),
-		name(i_name),
-		boilingPoint(i_boilingPoint)
-	{};
+	){
+		chemical.liquid.density = i_density;
+		chemical.name = i_name;
+		chemical.gas.transition = i_boilingPoint;
+	};
+//
 	propellant(
 		std::string i_name,
 		double i_density,
 		double i_boilingPoint,
 		double i_freezingPoint
 		
-	):
-		density(i_density),
-		name(i_name),
-		boilingPoint(i_boilingPoint),
-		freezingPoint(i_freezingPoint)
-	{};
+	){
+		chemical.liquid.density = i_density;
+		chemical.name = i_name;
+		chemical.gas.transition = i_boilingPoint;
+		chemical.liquid.transition = i_freezingPoint;
+	};
+//info
+	double density(){
+		return chemical.liquid.density;
+	};
 };
 
 #endif

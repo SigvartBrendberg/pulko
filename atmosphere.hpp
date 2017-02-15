@@ -1,6 +1,8 @@
 #ifndef INC_atmosphere_HPP
 #define INC_atmosphere_HPP
 
+#include "propellants.hpp"
+
 struct atmosphereLayer{
 	double ceiling;
 	double basePressure;
@@ -12,11 +14,18 @@ struct atmosphereLayer{
 	};
 };
 
+struct gasPart{
+	propellant* compound;
+	double share;
+};
+
 class atmosphere{
 private:
 	std::vector<atmosphereLayer> layers;
 public:
 	double ceiling;
+	std::vector<gasPart> compositon;
+
 	double density(double altitude){
 		if(altitude > ceiling){
 			return 0;//vacuum

@@ -109,7 +109,7 @@ struct tank{
 	{};
 //info
 	double getCapacity(){
-		return volume/prop->density;
+		return volume/prop->density();
 	};
 };
 
