@@ -1,3 +1,6 @@
+#ifndef INC_parts_HPP
+#define INC_parts_HPP
+
 #include "propellants.hpp"
 
 struct payload{
@@ -328,3 +331,5 @@ public:
 		return 0;
 	};
 };
+
+#endif

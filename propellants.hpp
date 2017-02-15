@@ -21,6 +21,13 @@ struct propellant{
 		boilingPoint(350)
 	{};
 	propellant(
+		std::string i_name
+	):
+		name(i_name),
+		density(1000),
+		boilingPoint(350)
+	{}
+	propellant(
 		std::string i_name,
 		double i_density
 	):

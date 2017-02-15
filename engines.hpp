@@ -28,3 +28,4 @@ engine engine_J2(
 	&fuel_LOX,
 	5.5
 );
+engine engine_NERVA;

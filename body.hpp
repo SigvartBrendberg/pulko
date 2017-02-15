@@ -25,6 +25,17 @@ public:
 	{
 		orb.gm = 1;
 	};
+//
+	body(
+		body*i_parent
+	):
+		parent(i_parent),
+		name("generic_planet"),
+		orb()
+	{
+		i_parent->addChild(this);
+	};
+//
 	body(
 		double i_gm,
 		double i_radius
@@ -36,6 +47,7 @@ public:
 	{
 		orb.gm = i_gm;
 	};
+//
 	body(
 		double i_gm,
 		double i_radius,
@@ -45,6 +57,33 @@ public:
 		radius(i_radius),
 		parent(i_parent),
 		name("generic_planet"),
+		orb()
+	{
+		i_parent->addChild(this);
+		orb.gm = i_gm;
+	};
+//
+	body(
+		body*i_parent,
+		std::string i_name
+	):
+		parent(i_parent),
+		name(i_name),
+		orb()
+	{
+		i_parent->addChild(this);
+	};
+//
+	body(
+		double i_gm,
+		double i_radius,
+		body*i_parent,
+		std::string i_name
+	):
+		gm(i_gm),
+		radius(i_radius),
+		parent(i_parent),
+		name(i_name),
 		orb()
 	{
 		i_parent->addChild(this);
@@ -70,5 +109,7 @@ public:
 		return children[children.size()-1];
 	};
 };
+
+body* init_solarSystem();
 
 #endif

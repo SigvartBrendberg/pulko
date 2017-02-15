@@ -2,17 +2,13 @@
 
 //propellant library
 
+//fuels:
+
 propellant fuel_LH2(
 	"liquid hydrogen",
 	70.85,
 	20,
 	14
-);
-propellant fuel_LOX(
-	"liquid oxygen",
-	1141,
-	90,
-	64
 );
 propellant fuel_RP1(
 	"RP-1",
@@ -33,4 +29,19 @@ propellant fuel_syntin(
 	851,//briefly used in soviet for higher density
 	431,
 	200//value from RP-1
+);
+
+//oxidizers:
+
+propellant fuel_LOX(
+	"liquid oxygen",
+	1141,
+	90,
+	64
+);
+propellant fuel_N2O4(
+	"nitrogen tetroxide"
+);
+propellant fuel_H2O2(
+	"hydrogen peroxide"
 );
