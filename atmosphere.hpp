@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "propellants.hpp"
+#include "compounds.hpp"
 
 struct atmosphereLayer{
 	double ceiling;

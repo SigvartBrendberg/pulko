@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "spacecraft.hpp"
 #include "state.hpp"
 
@@ -10,5 +12,8 @@ int launchCheck(spacecraft*craft,double altitude){
 };
 
 unsigned long long ascent(spacecraft*craft,double altitude,unsigned int maxFrame){
-	launchCheck(craft,altitude);
+	if(launchCheck(craft,altitude)){
+		std::cout << "launch failed" << std::endl;
+		return 1;
+	};
 };
