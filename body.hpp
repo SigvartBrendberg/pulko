@@ -12,13 +12,13 @@ class body{
 private:
 	std::vector<body*> children;
 	body* parent;
-	orbit orb;
 public:
 	double gm;
 	double radius;
 	std::string name;
 	bool hasAtmosphere;
 	atmosphere air;
+	orbit orb;
 //constructors
 	body():
 		gm(1),
@@ -56,9 +56,9 @@ public:
 		double i_radius,
 		body*i_parent
 	):
+		parent(i_parent),
 		gm(i_gm),
 		radius(i_radius),
-		parent(i_parent),
 		name("generic_planet"),
 		orb()
 	{
@@ -83,9 +83,9 @@ public:
 		body*i_parent,
 		std::string i_name
 	):
+		parent(i_parent),
 		gm(i_gm),
 		radius(i_radius),
-		parent(i_parent),
 		name(i_name),
 		orb()
 	{

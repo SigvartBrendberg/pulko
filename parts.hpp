@@ -173,29 +173,76 @@ Call when a tank is empty or dropped
 	};
 	double detectDeltav(double pushLoad){
 		double deltav = 0;
-		int candidates = scanEngines();
+		double lostMass = 0;
+		std::vector<propellant*> stockTypes;
+		std::vector<double> stockAmount;
+		for(unsigned int i=0;i<tanks.size();i++){
+			propellant* stuffFoundInTank = tanks[i]->prop;
+			bool foundFlag = false;
+			for(unsigned int stuffIndeks = 0;stuffIndeks < stockTypes.size();i++){
+				if(stockTypes[stuffIndeks] == stuffFoundInTank){
+					stockAmount[i] += tanks[i]->propMass;
+					foundFlag = true;
+					break;
+				};
+			};
+			if(!foundFlag){
+				stockTypes.push_back(stuffFoundInTank);
+				stockAmount.push_back(tanks[i]->propMass);
+			};
+		};
 		while(scanEngines()){
-			int indeks = 0;
+			unsigned int indeks = 0;
 			double vel = 0;
-			for(int i=0;i<engines.size();i++){
+			for(unsigned int i=0;i<engines.size();i++){
 				if(engines[i]->hasPropellant && engines[i]->vel > vel){
 					indeks = i;
 					vel = engines[i]->vel;
 				};
 			};
-			/*get the fuel type*///FIXME
-			/*get the oxidier type*/
-			double limitedFuel;//amount of proper fuel
-			double limitedOxidizer;//amount of proper oxidizer
-			double expMass;
-			/*
-			if(){
+			propellant* fuel = engines[indeks]->fuel;
+			propellant* oxid = engines[indeks]->oxidizer;
+			double limitedFuel = 0;//amount of proper fuel
+			double limitedOxidizer = 0;//amount of proper oxidizer
+			bool foundToggle = false;
+			for(unsigned int i=0;i<stockTypes.size();i++){
+				if(stockTypes[i] == fuel){
+					limitedFuel += stockAmount[i];
+					foundToggle = true;
+					break;
+				}
+				else if(stockTypes[i] == oxid){
+					limitedOxidizer += stockAmount[i];
+					break;
+				};
+			};
+			if(foundToggle){
+				for(unsigned int i=0;i<stockTypes.size();i++){
+					if(stockTypes[i] == oxid){
+						limitedOxidizer += stockAmount[i];
+						break;
+					};
+				};
 			}
 			else{
-			};*/
-			deltav += std::log(mass/(mass - expMass))*vel;
+				for(unsigned int i=0;i<stockTypes.size();i++){
+					if(stockTypes[i] == fuel){
+						limitedFuel += stockAmount[i];
+						break;
+					};
+				};
+			};
+			double expMass;
+			if(limitedOxidizer < limitedFuel * engines[indeks]->oxiPerFuel){//find the limiting factor
+				expMass = limitedOxidizer * (1+1/engines[indeks]->oxiPerFuel);
+			}
+			else{
+				expMass = limitedFuel * (1+engines[indeks]->oxiPerFuel);
+			};
+			deltav += std::log((mass + pushLoad - lostMass)/(mass + pushLoad - expMass - lostMass))*vel;
+			lostMass += expMass;
 		};
-		return deltav;//plasshaldar
+		return deltav;
 	};
 	double getThrust(){
 		scanEngines();
@@ -312,8 +359,8 @@ public:
 	std::string name;
 //constructors
 	rocket():
-		name("unnamed"),
-		mass(0)
+		mass(0),
+		name("unnamed")
 	{};
 //destructors
 	~rocket(){

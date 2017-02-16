@@ -16,4 +16,4 @@ int stuff(){
 	rocket sojuz;
 	sojuz.name = "sojuz";
 	return 0;
-};
+}

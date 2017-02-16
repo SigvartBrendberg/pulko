@@ -5,6 +5,8 @@
 #define ALTITUDE_RADIUS_RATIO 1.05
 
 unsigned long long atmosphericDescent(spacecraft*craft,unsigned int maxFrame){
+	unsigned long long time;
+	return time;
 };
 
 unsigned long long descent(spacecraft*craft,unsigned int maxFrame){

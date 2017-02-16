@@ -35,8 +35,8 @@ public:
 	double ano;
 	orbit():
 		gm(1),
-		apoapsis(0),
 		periapsis(0),
+		apoapsis(0),
 		inc(0),
 		arg(0),
 		asc(0),
@@ -52,8 +52,8 @@ public:
 		double i_ano
 	):
 		gm(i_gm),
-		apoapsis(i_apoapsis),
 		periapsis(i_periapsis),
+		apoapsis(i_apoapsis),
 		inc(i_inc),
 		arg(i_arg),
 		asc(i_asc),
@@ -68,8 +68,8 @@ public:
 		double i_asc
 	):
 		gm(i_gm),
-		apoapsis(i_apoapsis),
 		periapsis(i_periapsis),
+		apoapsis(i_apoapsis),
 		inc(i_inc),
 		arg(i_arg),
 		asc(i_asc),
