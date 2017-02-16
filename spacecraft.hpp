@@ -28,11 +28,8 @@ public:
 	double getThrust(){
 		return hardware->getThrust();
 	};
-	int dropStage(){
-		if(hardware->dropStage()){
-			return 1;
-		};
-		return 0;
+	bool dropStage(){
+		hardware->dropStage();
 	};
 };
 

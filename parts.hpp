@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <vector>
+#include <stack>
 #include <iostream>
 
 #include "propellants.hpp"
@@ -351,7 +352,7 @@ Call when a tank is empty or dropped
 
 class rocket{
 private:
-	std::vector<stage*> stages;
+	std::stack<stage*,std::deque<stage*> > stages;
 	std::vector<payload*> payloads;
 	double mass;
 public:
@@ -365,8 +366,9 @@ public:
 //destructors
 	~rocket(){
 		std::cout << name << " has been destroyed" << std::endl;
-		for(unsigned int i = 0; i < stages.size();i++){
-			delete stages[i];
+		while(!stages.empty()){
+			delete stages.top();
+			stages.pop();
 		};
 		for(unsigned int i = 0; i < payloads.size();i++){
 			delete payloads[i];
@@ -377,7 +379,7 @@ public:
 		return mass;
 	};
 	double getThrust(){
-		return stages[stages.size()]->getThrust();
+		return stages.top()->getThrust();
 	};
 //actions
 	int addPayload(payload* newPayload){
@@ -394,29 +396,29 @@ public:
 		payloads.erase(payloads.begin()+payloadIndex);
 		return 0;
 	};
-	int dropStage(){
-		if(stages.size()){
-			mass -= stages[stages.size() - 1]->getMass();
-			delete stages[stages.size() - 1];
-			stages.pop_back();
-			return 0;
+	bool dropStage(){
+		if(!stages.empty()){
+			stage* topp = stages.top();
+			stages.pop();
+			mass -= topp->getMass();
+			delete topp;
+			return false;
 		};
-		return 0;
+		return true;
 	};
 	int produceDeltav(double deltav){
 		while(deltav > 0){
-			if(stages.size() == 0){
+			if(stages.empty()){
 				return 1;//not enough deltav in stages to reach target value
 			};
-			unsigned int inUse = stages.size() - 1;
-			double pushLoad = mass - stages[inUse]->getMass();
-			double nextStep = stages[inUse]->detectDeltav(pushLoad);
+			double pushLoad = mass - stages.top()->getMass();
+			double nextStep = stages.top()->detectDeltav(pushLoad);
 			if(deltav > nextStep){
 				deltav -= nextStep;
 				dropStage();
 			}
 			else{
-				stages[inUse]->produceDeltav(deltav,pushLoad);
+				stages.top()->produceDeltav(deltav,pushLoad);
 				break;
 			};
 		};
