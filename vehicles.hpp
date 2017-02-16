@@ -8,6 +8,11 @@ private:
 public:
 	spacecraft* craft;
 	std::vector<capsule*> quarters;
+	~manned(){
+		for(unsigned int i=quarters.size();i--;){
+			delete quarters[i];
+		};
+	};
 };
 
 class probe{

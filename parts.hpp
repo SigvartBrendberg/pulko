@@ -1,6 +1,10 @@
 #ifndef INC_parts_HPP
 #define INC_parts_HPP
 
+#include <cmath>
+#include <vector>
+#include <iostream>
+
 #include "propellants.hpp"
 
 struct payload{
@@ -132,11 +136,12 @@ public:
 		};
 	};
 //internal management
-	void scanEngines(){
+	int scanEngines(){
 		/*
 Checks what engines have propellant available.
 Call when a tank is empty or dropped
 		*/
+		int any = 0;
 		for(unsigned int i = engines.size();i--;){
 			for(unsigned int j = tanks.size();j--;){
 				if(engines[i]->fuel == tanks[j]->prop){
@@ -144,26 +149,53 @@ Call when a tank is empty or dropped
 					break;
 				};
 			};
-			if(
+			if(engines[i]->needsOxidizer){
+				any++;
+			}
+			else if(
 				engines[i]->hasPropellant
-				&& engines[i]->needsOxidizer
 			){
 				engines[i]->hasPropellant = false;
 				for(unsigned int j = tanks.size();j--;){
 					if(engines[i]->oxidizer == tanks[j]->prop){
 						engines[i]->hasPropellant = true;
+						any++;
 						break;
 					};
 				};	
 			};
 		};
+		return any;
 	};
 //info
 	double getMass(){
 		return mass;
 	};
 	double detectDeltav(double pushLoad){
-		return 0;//plasshaldar
+		double deltav = 0;
+		int candidates = scanEngines();
+		while(scanEngines()){
+			int indeks = 0;
+			double vel = 0;
+			for(int i=0;i<engines.size();i++){
+				if(engines[i]->hasPropellant && engines[i]->vel > vel){
+					indeks = i;
+					vel = engines[i]->vel;
+				};
+			};
+			/*get the fuel type*///FIXME
+			/*get the oxidier type*/
+			double limitedFuel;//amount of proper fuel
+			double limitedOxidizer;//amount of proper oxidizer
+			double expMass;
+			/*
+			if(){
+			}
+			else{
+			};*/
+			deltav += std::log(mass/(mass - expMass))*vel;
+		};
+		return deltav;//plasshaldar
 	};
 	double getThrust(){
 		scanEngines();
@@ -265,7 +297,7 @@ Call when a tank is empty or dropped
 			return 1;
 		};
 	};
-	int produceDeltav(double pushLoad){
+	int produceDeltav(double deltav,double pushLoad){
 		return 0;//plasshaldar
 	};
 };
@@ -337,7 +369,7 @@ public:
 				dropStage();
 			}
 			else{
-				stages[inUse]->produceDeltav(pushLoad);
+				stages[inUse]->produceDeltav(deltav,pushLoad);
 				break;
 			};
 		};
