@@ -7,8 +7,12 @@
 
 class capsule{
 private:
+	double ablator;
+	double temperature;
 	std::vector<cosmonaut*> crew;
 public:
+	double friction;
+	double mass;
 	unsigned int crewCapacity;
 };
 

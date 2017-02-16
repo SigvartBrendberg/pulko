@@ -316,9 +316,12 @@ public:
 		return 0;
 	};
 	int dropStage(){
-		mass -= stages[stages.size() - 1]->getMass();
-		delete stages[stages.size() - 1];
-		stages.pop_back();
+		if(stages.size()){
+			mass -= stages[stages.size() - 1]->getMass();
+			delete stages[stages.size() - 1];
+			stages.pop_back();
+			return 0;
+		};
 		return 0;
 	};
 	int produceDeltav(double deltav){

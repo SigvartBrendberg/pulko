@@ -1,2 +1,7 @@
+#ifndef INC_orbit_HPP
+#define INC_orbit_HPP
+
 double ellipse(double gm,double radius,double periapsis,double apoapsis);
-double trasferCost(orbit* origin,orbit* target);
+double transferCost(orbit* origin,orbit* target);
+
+#endif

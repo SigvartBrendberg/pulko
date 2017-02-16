@@ -8,11 +8,11 @@
 class spacecraft{
 private:
 	unsigned long long timeStamp;
-	orbit orb;
 	ground gro;
-	body* centralBody;
 	rocket* hardware;
 public:
+	orbit orb;
+	body* centralBody;
 	bool spaceMode;
 	spacecraft():
 		spaceMode(false)
@@ -27,6 +27,12 @@ public:
 	};
 	double getThrust(){
 		return hardware->getThrust();
+	};
+	int dropStage(){
+		if(hardware->dropStage()){
+			return 1;
+		};
+		return 0;
 	};
 };
 

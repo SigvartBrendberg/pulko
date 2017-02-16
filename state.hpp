@@ -59,6 +59,22 @@ public:
 		asc(i_asc),
 		ano(i_ano)
 	{};
+	orbit(
+		double i_gm,
+		double i_periapsis,
+		double i_apoapsis,
+		double i_inc,
+		double i_arg,
+		double i_asc
+	):
+		gm(i_gm),
+		apoapsis(i_apoapsis),
+		periapsis(i_periapsis),
+		inc(i_inc),
+		arg(i_arg),
+		asc(i_asc),
+		ano(0)
+	{};
 //unlisted properties
 	double radius(){
 		return 2 * apoapsis * periapsis / (
