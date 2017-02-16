@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <cstdlib>
 
 #include "skill.hpp"
 
@@ -14,8 +15,8 @@ public:
 	std::string name;
 	bool gender;
 	unsigned short age;
-	cosmonaut()
-		/*something random*/
+	cosmonaut():
+		gender((bool)std::rand()%2)
 	{};
 	~cosmonaut(){
 		std::cout << "the cosmonaut object " << name << " has been deleted. It may be in a log file" << std::endl;
