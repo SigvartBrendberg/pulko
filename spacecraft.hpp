@@ -10,13 +10,24 @@ private:
 	unsigned long long timeStamp;
 	orbit orb;
 	ground gro;
-	bool spaceMode;
 	body* centralBody;
 	rocket* hardware;
 public:
+	bool spaceMode;
 	spacecraft():
 		spaceMode(false)
 	{};
+	double gravAcceleration(){
+		if(spaceMode){
+			return orb.gm/(orb.radius()*orb.radius());
+		}
+		else{
+			return gro.gm/(gro.radius*gro.radius);
+		};
+	};
+	double getThrust(){
+		return hardware->getThrust();
+	};
 };
 
 #endif

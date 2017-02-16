@@ -1,6 +1,8 @@
 #ifndef INC_atmosphere_HPP
 #define INC_atmosphere_HPP
 
+#include <vector>
+
 #include "propellants.hpp"
 
 struct atmosphereLayer{
@@ -15,7 +17,7 @@ struct atmosphereLayer{
 };
 
 struct gasPart{
-	propellant* compound;
+	compound* stuff;
 	double share;
 };
 

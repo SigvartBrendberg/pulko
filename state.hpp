@@ -61,14 +61,17 @@ public:
 	{};
 //unlisted properties
 	double radius(){
-		return 2*apoapsis*periapsis/((apoapsis-periapsis)*std::cos(ano) + apoapsis + periapsis);
+		return 2 * apoapsis * periapsis / (
+			(apoapsis-periapsis) * std::cos(ano)
+			+ apoapsis + periapsis
+		);
 		//(2 A P)/((A - P) cos(u) + A + P)
 	};
 	double semi(){
 		return (periapsis + apoapsis)/2;
 	};
 	double eccentricity(){
-		return (apoapsis-periapsis)/(periapsis + apoapsis);
+		return (apoapsis - periapsis)/(periapsis + apoapsis);
 	};
 	double speed(){
 		return std::sqrt(
@@ -81,14 +84,17 @@ public:
 		);
 	};
 	double horisontalSpeed(){
-		return speed(periapsis)*periapsis/radius();
+		return speed(periapsis) * periapsis/radius();
 	};
 	double horisontalSpeed(double distance){
-		return speed(periapsis)*periapsis/distance;
+		return speed(periapsis) * periapsis/distance;
 	};
 //info
 	double escapeCost(double distance){
-		return std::sqrt(2*gm/distance) - std::sqrt(gm*(2/distance - 2/(apoapsis+periapsis)));
+		return std::sqrt(2*gm/distance)
+			- std::sqrt(
+				gm*(2/distance - 2/(apoapsis + periapsis))
+			);
 	};
 };
 

@@ -165,6 +165,16 @@ Call when a tank is empty or dropped
 	double detectDeltav(double pushLoad){
 		return 0;//plasshaldar
 	};
+	double getThrust(){
+		scanEngines();
+		double thrust;
+		for(unsigned int i = engines.size();i--;){
+			if(engines[i]->hasPropellant){
+				thrust += engines[i]->thrust;//no compensation for air pressure at the moment
+			};
+		};
+		return thrust;
+	};
 //actions
 	int addEngine(engine* i_engine){
 		engines.push_back(i_engine);
@@ -286,6 +296,9 @@ public:
 //info
 	double getMass(){
 		return mass;
+	};
+	double getThrust(){
+		return stages[stages.size()]->getThrust();
 	};
 //actions
 	int addPayload(payload* newPayload){
