@@ -1,11 +1,12 @@
-#ifndef INC_cosmonaut_HPP
-#define INC_cosmonaut_HPP
+#ifndef INC_skill_HPP
+#define INC_skill_HPP
 
-#include "skill.hpp"
+#include <string>
 
 class skill{
 private:
 public:
+	std::string skillName;
 };
 
 #endif

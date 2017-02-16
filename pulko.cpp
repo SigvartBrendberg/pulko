@@ -8,7 +8,7 @@
 #include "engines.hpp"
 #include "state.hpp"
 #include "orbit.hpp"
-#include "spacecraft.hpp"
+#include "vehicles.hpp"
 
 int stuff(){
 	engine broom(50,1000,10000,&fuel_LH2,&fuel_LOX,2);

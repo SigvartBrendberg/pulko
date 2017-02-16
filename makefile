@@ -4,7 +4,7 @@ pulko : main.o pulko.o orbit.o state.o bodyLibrary.o descent.o ascent.o
 main.o : main.cpp pulko.hpp body.hpp
 	g++ -O3 -c main.cpp
 
-pulko.o : pulko.cpp propellantLibrary.hpp parts.hpp engines.hpp state.hpp orbit.hpp spacecraft.hpp parts.hpp propellants.hpp compounds.hpp
+pulko.o : pulko.cpp propellantLibrary.hpp parts.hpp engines.hpp state.hpp orbit.hpp vehicles.hpp capsule.hpp cosmonaut.hpp skill.hpp spacecraft.hpp parts.hpp propellants.hpp compounds.hpp
 	g++ -O3 -c pulko.cpp
 orbit.o : orbit.cpp
 	g++ -O3 -c orbit.cpp
