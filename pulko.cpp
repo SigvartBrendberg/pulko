@@ -2,7 +2,9 @@
 #include <string>
 
 #include "propellantLibrary.hpp"
-#include "parts.hpp"
+#include "engine.hpp"
+#include "stage.hpp"
+#include "rocket.hpp"
 #include "engines.hpp"
 #include "state.hpp"
 #include "orbit.hpp"

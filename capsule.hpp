@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "cosmonaut.hpp"
-#include "parts.hpp"
+#include "rocket.hpp"
 
 class capsule{
 private:

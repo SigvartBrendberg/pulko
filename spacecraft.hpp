@@ -3,7 +3,7 @@
 
 #include "body.hpp"
 #include "state.hpp"
-#include "parts.hpp"
+#include "rocket.hpp"
 
 class spacecraft{
 private:
