@@ -114,8 +114,8 @@ public:
 	};
 };
 
-orbit groundToOrbit(ground* initial);
+orbit groundToOrbit(ground initial);
 
-ground orbitToGround(orbit* initial);
+ground orbitToGround(orbit initial);
 
 #endif

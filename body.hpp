@@ -103,6 +103,9 @@ public:
 	body* getParent(){
 		return parent;
 	};
+	double gravity(double altitude){
+		return gm/((radius + altitude)*(radius + altitude));
+	};
 //actions
 	int addChild(body* newChild){
 		children.push_back(newChild);
