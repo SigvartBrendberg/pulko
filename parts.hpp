@@ -6,7 +6,9 @@
 #include <stack>
 #include <iostream>
 
-#include "propellants.hpp"
+#include "propellant.hpp"
+#include "basic_part.hpp"
+#include "engine.hpp"
 
 struct payload{
 	double mass;
@@ -18,84 +20,14 @@ struct payload{
 	{};
 };
 
-struct engine{
-	double mass;
-	double vel;
-	double thrust;
-	double air_vel;
-	double air_thrust;
-	propellant* fuel;
-	propellant* oxidizer;
-	double oxiPerFuel;
-	bool dropable;
-	bool hasPropellant;
-	bool needsOxidizer;
-
-	engine():
-		mass(0),
-		vel(0),
-		thrust(0),
-		air_vel(0),
-		air_thrust(0),
-		oxiPerFuel(0),
-		dropable(false),
-		hasPropellant(false),
-		needsOxidizer(false)
-	{};
-	engine(
-		double i_masse,
-		double i_vel,
-		double i_thrust,
-		propellant* i_fuel,
-		propellant* i_oxidizer,
-		double i_oxiPerFuel
-	):
-		mass(i_masse),
-		vel(i_vel),
-		thrust(i_thrust),
-		fuel(i_fuel),
-		oxidizer(i_oxidizer),
-		oxiPerFuel(i_oxiPerFuel),
-		dropable(true),
-		hasPropellant(false),
-		needsOxidizer(true)
-	{};
-	engine(
-		double i_masse,
-		double i_vel,
-		double i_thrust,
-		double i_air_vel,
-		double i_air_thrust,
-		propellant* i_fuel,
-		propellant* i_oxidizer,
-		double i_oxiPerFuel
-	):
-		mass(i_masse),
-		vel(i_vel),
-		thrust(i_thrust),
-		air_vel(i_air_vel),
-		air_thrust(i_air_vel),
-		fuel(i_fuel),
-		oxidizer(i_oxidizer),
-		oxiPerFuel(i_oxiPerFuel),
-		dropable(true),
-		hasPropellant(false),
-		needsOxidizer(true)
-	{};
-	~engine(){
-		std::cout << "bye bye engine" << std::endl;//DEBUG
-	};
-};
-
-struct tank{
-	double dead;
+struct tank : basic_part{
 	double volume;
 	propellant* prop;
 	double propMass;
 	bool dropable;
 
 	tank():
-		dead(0),
+		basic_part(0),
 		volume(0),
 		propMass(0),
 		dropable(true)
@@ -106,7 +38,7 @@ struct tank{
 		propellant* i_prop,
 		double i_propMass
 	):
-		dead(i_dead),
+		basic_part(i_dead),
 		volume(i_volume),
 		prop(i_prop),
 		propMass(i_propMass),

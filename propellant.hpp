@@ -1,5 +1,5 @@
-#ifndef INC_propellants_HPP
-#define INC_propellants_HPP
+#ifndef INC_propellant_HPP
+#define INC_propellant_HPP
 
 #include <string>
 
