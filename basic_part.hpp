@@ -1,5 +1,5 @@
-#ifndef basic_par_HPP
-#define basic_par_HPP
+#ifndef INC_basic_part_HPP
+#define INC_basic_part_HPP
 
 class basic_part{
 public:

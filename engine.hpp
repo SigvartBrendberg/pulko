@@ -1,3 +1,6 @@
+#ifndef INC_engine_HPP
+#define INC_engine_HPP
+
 #include <iostream>//debug
 
 #include "basic_part.hpp"
@@ -70,3 +73,5 @@ struct engine : public basic_part{
 		std::cout << "bye bye engine" << std::endl;//DEBUG
 	};
 };
+
+#endif
