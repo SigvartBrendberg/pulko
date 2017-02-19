@@ -42,23 +42,6 @@ double stage::getMass(){
 double stage::detectDeltav(double pushLoad){
 	double deltav = 0;
 	double lostMass = 0;
-	std::vector<propellant*> stockTypes;
-	std::vector<double> stockAmount;
-	for(unsigned int i=0;i<tanks.size();i++){
-		propellant* stuffFoundInTank = tanks[i]->prop;
-		bool foundFlag = false;
-		for(unsigned int stuffIndeks = 0;stuffIndeks < stockTypes.size();i++){
-			if(stockTypes[stuffIndeks] == stuffFoundInTank){
-				stockAmount[i] += tanks[i]->propMass;
-				foundFlag = true;
-				break;
-			};
-		};
-		if(!foundFlag){
-			stockTypes.push_back(stuffFoundInTank);
-			stockAmount.push_back(tanks[i]->propMass);
-		};
-	};
 	while(scanEngines()){
 		unsigned int indeks = 0;
 		double vel = 0;
@@ -72,32 +55,12 @@ double stage::detectDeltav(double pushLoad){
 		propellant* oxid = engines[indeks]->oxidizer;
 		double limitedFuel = 0;//amount of proper fuel
 		double limitedOxidizer = 0;//amount of proper oxidizer
-		bool foundToggle = false;
-		for(unsigned int i=0;i<stockTypes.size();i++){
-			if(stockTypes[i] == fuel){
-					limitedFuel += stockAmount[i];
-				foundToggle = true;
-				break;
+		for(unsigned int i=0;i<tanks.size();i++){
+			if(tanks[i]->prop == fuel){
+				limitedFuel += tanks[i]->propMass;
 			}
-			else if(stockTypes[i] == oxid){
-				limitedOxidizer += stockAmount[i];
-				break;
-			};
-		};
-		if(foundToggle){
-			for(unsigned int i=0;i<stockTypes.size();i++){
-				if(stockTypes[i] == oxid){
-					limitedOxidizer += stockAmount[i];
-					break;
-				};
-			};
-		}
-		else{
-			for(unsigned int i=0;i<stockTypes.size();i++){
-				if(stockTypes[i] == fuel){
-					limitedFuel += stockAmount[i];
-					break;
-				};
+			else if(tanks[i]->prop == oxid){
+				limitedOxidizer += tanks[i]->propMass;
 			};
 		};
 		double expMass;
@@ -213,5 +176,68 @@ int stage::transferPropellant(
 	};
 };
 int stage::produceDeltav(double deltav,double pushLoad){
-	return 0;//plasshaldar
+	while(scanEngines()){
+		unsigned int indeks = 0;
+		double vel = 0;
+		for(unsigned int i=0;i<engines.size();i++){
+			if(engines[i]->hasPropellant && engines[i]->vel > vel){
+				indeks = i;
+				vel = engines[i]->vel;
+			};
+		};
+		propellant* fuel = engines[indeks]->fuel;
+		propellant* oxid = engines[indeks]->oxidizer;
+		double limitedFuel = 0;//amount of proper fuel
+		double limitedOxidizer = 0;//amount of proper oxidizer
+		for(unsigned int i=0;i<tanks.size();i++){
+			if(tanks[i]->prop == fuel){
+				limitedFuel += tanks[i]->propMass;
+			}
+			else if(tanks[i]->prop == oxid){
+				limitedOxidizer += tanks[i]->propMass;
+			};
+		};
+		double expMass;
+		if(limitedOxidizer < limitedFuel * engines[indeks]->oxiPerFuel){//find the limiting factor
+			expMass = limitedOxidizer * (1+1/engines[indeks]->oxiPerFuel);
+		}
+		else{
+			expMass = limitedFuel * (1+engines[indeks]->oxiPerFuel);
+		};
+		double testDeltav = std::log((mass + pushLoad)/(mass + pushLoad - expMass))*vel;
+		if(testDeltav < deltav){
+			mass -= expMass;
+			deltav -= testDeltav;
+			for(unsigned int i=0;i<tanks.size();i++){
+				if(tanks[i]->prop == fuel){
+					if(limitedFuel > tanks[i]->propMass){
+						limitedFuel -= tanks[i]->propMass;
+						tanks[i]->propMass = 0;
+					}
+					else{
+						tanks[i]->propMass -= limitedFuel;
+						break;
+					};
+				};
+			};
+			for(unsigned int i=0;i<tanks.size();i++){
+				if(tanks[i]->prop == oxid){
+					if(limitedOxidizer > tanks[i]->propMass){
+						limitedOxidizer -= tanks[i]->propMass;
+						tanks[i]->propMass = 0;
+					}
+					else{
+						tanks[i]->propMass -= limitedOxidizer;
+						break;
+					};
+				};
+			};
+		}
+		else{
+			double reverseExpMass = (mass + pushLoad)/std::exp(testDeltav/vel) - mass - pushLoad;
+			//also, remove propellant FIXME
+			return 0;
+		};
+	};
+	return 1;//plasshaldar
 };
