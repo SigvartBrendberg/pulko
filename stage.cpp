@@ -189,6 +189,7 @@ int stage::produceDeltav(double deltav,double pushLoad){
 		propellant* oxid = engines[indeks]->oxidizer;
 		double limitedFuel = 0;//amount of proper fuel
 		double limitedOxidizer = 0;//amount of proper oxidizer
+		double oxiPerFuel = engines[indeks]->oxiPerFuel;
 		for(unsigned int i=0;i<tanks.size();i++){
 			if(tanks[i]->prop == fuel){
 				limitedFuel += tanks[i]->propMass;
@@ -198,46 +199,49 @@ int stage::produceDeltav(double deltav,double pushLoad){
 			};
 		};
 		double expMass;
-		if(limitedOxidizer < limitedFuel * engines[indeks]->oxiPerFuel){//find the limiting factor
-			expMass = limitedOxidizer * (1+1/engines[indeks]->oxiPerFuel);
+		if(limitedOxidizer < limitedFuel * oxiPerFuel){//find the limiting factor
+			expMass = limitedOxidizer * (1+1/oxiPerFuel);
 		}
 		else{
-			expMass = limitedFuel * (1+engines[indeks]->oxiPerFuel);
+			expMass = limitedFuel * (1+oxiPerFuel);
 		};
 		double testDeltav = std::log((mass + pushLoad)/(mass + pushLoad - expMass))*vel;
-		if(testDeltav < deltav){
-			mass -= expMass;
-			deltav -= testDeltav;
-			for(unsigned int i=0;i<tanks.size();i++){
-				if(tanks[i]->prop == fuel){
-					if(limitedFuel > tanks[i]->propMass){
-						limitedFuel -= tanks[i]->propMass;
-						tanks[i]->propMass = 0;
-					}
-					else{
-						tanks[i]->propMass -= limitedFuel;
-						break;
-					};
-				};
-			};
-			for(unsigned int i=0;i<tanks.size();i++){
-				if(tanks[i]->prop == oxid){
-					if(limitedOxidizer > tanks[i]->propMass){
-						limitedOxidizer -= tanks[i]->propMass;
-						tanks[i]->propMass = 0;
-					}
-					else{
-						tanks[i]->propMass -= limitedOxidizer;
-						break;
-					};
-				};
-			};
+		if(testDeltav > deltav){
+			expMass = (mass + pushLoad)/std::exp(testDeltav/vel) - mass - pushLoad;
+			limitedFuel = expMass/(1+oxiPerFuel);
+			limitedOxidizer = limitedFuel * oxiPerFuel;
 		}
 		else{
-			double reverseExpMass = (mass + pushLoad)/std::exp(testDeltav/vel) - mass - pushLoad;
-			//also, remove propellant FIXME
+			deltav -= testDeltav;
+		};
+		mass -= expMass;
+		for(unsigned int i=0;i<tanks.size();i++){
+			if(tanks[i]->prop == fuel){
+				if(limitedFuel > tanks[i]->propMass){
+					limitedFuel -= tanks[i]->propMass;
+					tanks[i]->propMass = 0;
+				}
+				else{
+					tanks[i]->propMass -= limitedFuel;
+					break;
+				};
+			};
+		};
+		for(unsigned int i=0;i<tanks.size();i++){
+			if(tanks[i]->prop == oxid){
+				if(limitedOxidizer > tanks[i]->propMass){
+					limitedOxidizer -= tanks[i]->propMass;
+					tanks[i]->propMass = 0;
+				}
+				else{
+					tanks[i]->propMass -= limitedOxidizer;
+					break;
+				};
+			};
+		};
+		if(testDeltav > deltav){
 			return 0;
 		};
 	};
-	return 1;//plasshaldar
+	return 1;//no error detection though...
 };
