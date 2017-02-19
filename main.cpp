@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 
 #include "pulko.hpp"
 #include "body.hpp"

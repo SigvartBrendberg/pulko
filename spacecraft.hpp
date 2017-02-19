@@ -35,9 +35,15 @@ public:
 	double getThrust(){
 		return hardware->getThrust();
 	};
+//actions
 	bool dropStage(){
 		hardware->dropStage();
 	};
+	unsigned long long escape();
+	unsigned long long ascent(double altitude,unsigned int maxFrame);
+	int launchCheck(double altitude);
+	unsigned long long atmosphericDescent(unsigned int maxFrame);
+	unsigned long long descent(unsigned int maxFrame);
 };
 
 #endif

@@ -19,7 +19,7 @@ public:
 		gender((bool)std::rand()%2)
 	{};
 	~cosmonaut(){
-		std::cout << "the cosmonaut object " << name << " has been deleted. It may be in a log file" << std::endl;
+		std::cout << "the cosmonaut object \"" << name << "\" has been deleted. It may be in a log file" << std::endl;
 		for(unsigned int i=skills.size();i--;){
 				delete skills[i];
 		};
