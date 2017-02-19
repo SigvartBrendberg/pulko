@@ -4,11 +4,16 @@
 #include "pulko.hpp"
 #include "body.hpp"
 #include "maneuvers.hpp"
+#include "bodyLibrary.hpp"
 
 int main(){
+	body MOUNT;
+	initSystem(&MOUNT);
+	std::cout << "checkpoint" << std::endl;
+	std::cout << MOUNT.latestChild()->name << std::endl;
 	std::srand(std::time(0));
-	body* systemMoutPoint = init_solarSystem();
 	stuff();
-	delete systemMoutPoint;
+	char wait;
+	std::cin >> wait;
 	return 0;
 };

@@ -1,7 +1,6 @@
 #ifndef INC_body_HPP
 #define INC_body_HPP
 
-#include <iostream>
 #include <vector>
 #include <string>
 
@@ -10,7 +9,8 @@
 
 class body{
 private:
-	std::vector<body*> children;
+	std::vector<body> children;
+	std::vector<body*> dynamicChildren;
 	body* parent;
 public:
 	double gm;
@@ -92,13 +92,26 @@ public:
 		i_parent->addChild(this);
 		orb.gm = i_gm;
 	};
-//destructors
-	~body(){
-		std::cout << name << " crunched" << std::endl;
-		for(unsigned int i = 0; i < children.size();i++){
-			delete children[i];
-		};
+	body(
+		double i_gm,
+		double i_radius,
+		std::string i_name
+	):
+		gm(i_gm),
+		radius(i_radius),
+		name(i_name),
+		orb()
+	{
+		orb.gm = i_gm;
 	};
+	body(
+		std::string i_name
+	):
+		name(i_name),
+		orb()
+	{};
+//destructors
+	~body(){};
 //info
 	body* getParent(){
 		return parent;
@@ -107,15 +120,28 @@ public:
 		return gm/((radius + altitude)*(radius + altitude));
 	};
 //actions
-	int addChild(body* newChild){
+	void addChild(body*newChild){
+		dynamicChildren.push_back(newChild);
+	};
+	body* addChild(
+		double gm,
+		double radius,
+		std::string name
+	){
+		body newChild(gm,radius,name);
 		children.push_back(newChild);
-		return 0;
+		return &children[children.size()-1];
+	};
+	body* addChild(
+		std::string name
+	){
+		body newChild(name);
+		children.push_back(newChild);
+		return &children[children.size()-1];
 	};
 	body* latestChild(){
-		return children[children.size()-1];
+		return &children[children.size()-1];
 	};
 };
-
-body* init_solarSystem();
 
 #endif

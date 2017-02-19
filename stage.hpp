@@ -56,7 +56,7 @@ public:
 		};
 	};
 //internal management
-	int scanEngines();
+	unsigned int scanEngines();
 //info
 	double getMass();
 	double detectDeltav(

@@ -4,12 +4,12 @@
 
 #include "stage.hpp"
 
-int stage::scanEngines(){
+unsigned int stage::scanEngines(){
 		/*
 Checks what engines have propellant available.
 Call when a tank is empty or dropped
 		*/
-	int any = 0;
+	unsigned int any = 0;
 	for(unsigned int i = engines.size();i--;){
 		for(unsigned int j = tanks.size();j--;){
 			if(engines[i]->fuel == tanks[j]->prop){
