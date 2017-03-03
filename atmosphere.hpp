@@ -11,9 +11,7 @@ struct atmosphereLayer{
 	double baseTemperature;
 	double temperatureGradient;
 
-	double density(double altitude){
-		return 666;//place holder
-	};
+	double density(double altitude,double gravity,double molarMass);
 };
 
 struct gasPart{
@@ -27,15 +25,10 @@ private:
 public:
 	double ceiling;
 	std::vector<gasPart> compositon;
+	
+	double molarMass();
 
-	double density(double altitude){
-		if(altitude > ceiling){
-			return 0;//vacuum
-		};
-		for(unsigned int i=layers.size()-1;altitude > layers[i].ceiling;i--){
-			return layers[i].density(altitude);
-		};
-	};
+	double density(double altitude,double gravity);
 };
 
 #endif

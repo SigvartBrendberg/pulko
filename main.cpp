@@ -4,7 +4,6 @@
 
 #include "pulko.hpp"
 #include "body.hpp"
-#include "maneuvers.hpp"
 #include "bodyLibrary.hpp"
 
 int main(){

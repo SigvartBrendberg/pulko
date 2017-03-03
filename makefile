@@ -1,5 +1,5 @@
-pulko : main.o pulko.o orbit.o state.o descent.o ascent.o stage.o rocket.o escape.o
-	g++ -o pulko main.o pulko.o orbit.o state.o descent.o ascent.o stage.o rocket.o escape.o
+pulko : main.o pulko.o orbit.o state.o descent.o ascent.o stage.o rocket.o escape.o atmosphere.o
+	g++ -o pulko main.o pulko.o orbit.o state.o descent.o ascent.o stage.o rocket.o escape.o atmosphere.o
 
 main.o : main.cpp
 	g++ -O3 -c main.cpp
@@ -20,3 +20,5 @@ rocket.o : rocket.cpp
 	g++ -O3 -c rocket.cpp
 escape.o : escape.cpp
 	g++ -O3 -c escape.cpp
+atmosphere.o : atmosphere.cpp
+	g++ -O3 -c atmosphere.cpp
