@@ -5,7 +5,7 @@
 #include <stack>
 #include <iostream>
 
-#include "stage.hpp"
+#include "module.hpp"
 
 struct payload{
 	double mass;
@@ -19,7 +19,7 @@ struct payload{
 
 class rocket{
 private:
-	std::stack<stage*,std::deque<stage*> > stages;
+	std::stack<module*,std::deque<module*> > modules;
 	std::vector<payload*> payloads;
 	double mass;
 public:
@@ -33,9 +33,9 @@ public:
 //destructors
 	~rocket(){
 		std::cout << name << " has been destroyed" << std::endl;
-		while(!stages.empty()){
-			delete stages.top();
-			stages.pop();
+		while(!modules.empty()){
+			delete modules.top();
+			modules.pop();
 		};
 		for(unsigned int i = 0; i < payloads.size();i++){
 			delete payloads[i];
@@ -51,7 +51,7 @@ public:
 	int dropPayload(
 		unsigned int payloadIndex
 	);
-	bool dropStage();
+	bool dropModule();
 	int produceDeltav(
 		double deltav
 	);

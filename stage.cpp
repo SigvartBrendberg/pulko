@@ -16,7 +16,7 @@ Call when a tank is empty or dropped
 				engines[i]->hasPropellant = true;
 				break;
 			};
-		};
+		};//checks if any tank has the appropiate fuel
 		if(engines[i]->needsOxidizer){
 			any++;
 		}
@@ -87,6 +87,7 @@ double stage::getThrust(){
 };
 //actions
 int stage::addEngine(engine* i_engine){
+	//TODO engines must be symetrical clusters
 	engines.push_back(i_engine);
 	mass += i_engine->mass;
 	scanEngines();//check if it can get propellant

@@ -4,7 +4,7 @@ double rocket::getMass(){
 		return mass;
 };
 double rocket::getThrust(){
-	return stages.top()->getThrust();
+	return modules.top()->getThrust();
 };
 //actions
 int rocket::addPayload(payload* newPayload){
@@ -21,10 +21,10 @@ int rocket::dropPayload(unsigned int payloadIndex){
 	payloads.erase(payloads.begin()+payloadIndex);
 	return 0;
 };
-bool rocket::dropStage(){
-	if(!stages.empty()){
-		stage* topp = stages.top();
-		stages.pop();
+bool rocket::dropModule(){
+	if(!modules.empty()){
+		module* topp = modules.top();
+		modules.pop();
 		mass -= topp->getMass();
 		delete topp;
 		return false;
@@ -33,17 +33,17 @@ bool rocket::dropStage(){
 };
 int rocket::produceDeltav(double deltav){
 	while(deltav > 0){
-		if(stages.empty()){
+		if(modules.empty()){
 			return 1;//not enough deltav in stages to reach target value
 		};
-		double pushLoad = mass - stages.top()->getMass();
-		double nextStep = stages.top()->detectDeltav(pushLoad);
+		double pushLoad = mass - modules.top()->getMass();
+		double nextStep = modules.top()->detectDeltav(pushLoad);
 		if(deltav > nextStep){
 			deltav -= nextStep;
-			dropStage();
+			dropModule();
 		}
 		else{
-			stages.top()->produceDeltav(deltav,pushLoad);
+			modules.top()->produceDeltav(deltav,pushLoad);
 			break;
 		};
 	};
