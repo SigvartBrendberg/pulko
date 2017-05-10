@@ -9,15 +9,14 @@
 
 class module{
 private:
-	std::stack<stage*,std::deque<stage*> > boosters;
+	std::vector<stage*> boosters;
 	std::vector<int> boosterSymetry;
 	double mass;
 public:
 //destructors
 	~module(){
-		while(!boosters.empty()){
-			delete boosters.top();
-			boosters.pop();
+		for(unsigned int i = 0; i < boosters.size();i++){
+			delete boosters[i];
 		};
 	};
 //info
@@ -28,6 +27,8 @@ public:
 	int produceDeltav(
 		double deltav
 	);
+	double detectDeltav(double pushload){return 0;};//what was the point of this one?
+	double produceDeltav(double deltav,double pushLoad){return 0;};//or this one?
 };
 
 #endif

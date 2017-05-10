@@ -37,7 +37,7 @@ public:
 	};
 //actions
 	bool dropStage(){
-		hardware->dropStage();
+		hardware->dropModule();
 	};
 	unsigned long long escape();
 	unsigned long long ascent(double altitude,unsigned int maxFrame);
