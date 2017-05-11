@@ -22,6 +22,16 @@ double module::getThrust(){
 	return totalStageThrust;
 };
 //actions
+int module::addStage(stage* i_stage,int symetry){
+	if(symetry < 1){
+		std::cout << "invalid symetry" << std::endl;
+		return 1;
+	};
+	boosters.push_back(i_stage);
+	boosterSymetry.push_back(symetry);
+	mass += symetry * i_stage->getMass();
+	return 0;
+};
 bool module::dropBooster(){
 	if(boosters.size() == 0){
 		std::cout << "module has no stages" << std::endl;

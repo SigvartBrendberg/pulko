@@ -5,6 +5,7 @@
 #include "pulko.hpp"
 #include "body.hpp"
 #include "bodyLibrary.hpp"
+#include "shell.hpp"
 
 int main(){
 	body MOUNT;
@@ -13,7 +14,8 @@ int main(){
 	std::cout << MOUNT.latestChild()->name << std::endl;
 	std::srand(std::time(0));
 	stuff();
-	char wait;
-	std::cin >> wait;
+	while(shell::eval()){};
+	/*char wait;
+	std::cin >> wait;*/
 	return 0;
 };

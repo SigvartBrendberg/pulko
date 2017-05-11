@@ -23,6 +23,7 @@ public:
 	double getMass();
 	double getThrust();
 //actions
+	int addStage(stage* i_stage,int symetry);
 	bool dropBooster();
 	int produceDeltav(
 		double deltav
